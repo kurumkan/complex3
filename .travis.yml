@@ -1,12 +1,12 @@
-sudo: required
+sudo: required # this is required for docker usage
 services:
   - docker
 
-before_install:
-  - docker build -t joomrise/react-test -f ./client/Dockerfile.dev ./client
+before_install: # before installing any dependencies
+  - docker build -t joomrise/react-test -f ./client/Dockerfile.dev ./client # tagging our image and defining custom Dockerfile. We will test only react part.
 
 script:
-  - docker run joomrise/react-test npm test -- --coverage
+  - docker run joomrise/react-test npm test -- --coverage # coverage allows us to exit the tests and returns a status
 
 after_success:
   - docker build -t joomrise/multi-client ./client
@@ -22,14 +22,14 @@ after_success:
   - docker push joomrise/multi-worker
 
 deploy:
-  provider: elasticbeanstalk
+  provider: elasticbeanstalk  # travis has support of multiple platforms
   region: us-east-2
   app: multi-docker
   env: MultiDocker-env
-  bucket_name: elasticbeanstalk-us-east-2-661200370736
+  bucket_name: elasticbeanstalk-us-east-2-661200370736 # this is kind of a harddrive id where the zipped app will be stored
   bucket_path: docker-multi
   on:
-    branch: master
+    branch: master # deploy on master branch update
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key:
     secure: $AWS_SECRET_KEY
