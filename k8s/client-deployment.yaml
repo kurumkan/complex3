@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment # legit for both dev & prod.
+metadata: # id
+  name: client-deployment
+spec: # spec - desired state
+  replicas: 3 # number of pods to be created
+  selector: # field defines how the Deployment finds which Pods to manage
+    matchLabels:
+      component: web # look for "web" pods (which is defined in template)
+  template: # template for pods created by this deployment
+    metadata: # pod id
+      labels:
+        component: web
+    spec:
+      containers:
+        - name: client # name of the container
+          image: joomrise/multi-client # image to pull. Container will be created out of it.
+          ports:
+            - containerPort: 3000 # exposed port
