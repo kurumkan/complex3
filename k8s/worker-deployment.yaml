@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment # legit for both dev & prod.
+metadata: # id
+  name: worker-deployment
+spec: # spec - desired state
+  replicas: 1 # number of pods to be created
+  selector: # field defines how the Deployment finds which Pods to manage
+    matchLabels:
+      component: worker # look for "worker" pods (which is defined in template)
+  template: # template for pods created by this deployment
+    metadata: # pod id
+      labels:
+        component: worker
+    spec:
+      containers:
+        - name: worker # name of the container
+          image: joomrise/multi-worker # image to pull. Container will be created out of it.

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment # legit for both dev & prod.
+metadata: # id
+  name: postgres-deployment
+spec: # spec - desired state
+  replicas: 1 # number of pods to be created
+  selector: # field defines how the Deployment finds which Pods to manage
+    matchLabels:
+      component: postgres # look for "postgres" pods (which is defined in template)
+  template: # template for pods created by this deployment
+    metadata: # pod id
+      labels:
+        component: postgres
+    spec:
+      containers:
+        - name: postgres # name of the container
+          image: postgres # image to pull. Container will be created out of it.
+          ports:
+            - containerPort: 5432 # exposed port

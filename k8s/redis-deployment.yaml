@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment # legit for both dev & prod.
+metadata: # id
+  name: redis-deployment
+spec: # spec - desired state
+  replicas: 1 # number of pods to be created
+  selector: # field defines how the Deployment finds which Pods to manage
+    matchLabels:
+      component: redis # look for "redis" pods (which is defined in template)
+  template: # template for pods created by this deployment
+    metadata: # pod id
+      labels:
+        component: redis
+    spec:
+      containers:
+        - name: redis # name of the container
+          image: redis # image to pull. Container will be created out of it.
+          ports:
+            - containerPort: 6379 # exposed port

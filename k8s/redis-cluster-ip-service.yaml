@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service # type of object we want to create. Service will setup networking inside KB cluster
+metadata: #id
+  name: redis-cluster-ip-service
+spec:
+  type: ClusterIP # the purpose of such type container is to wire up objects inside a cluster, but not expose anything outside
+  selector:
+      component: redis # label selector. "component" part is arbitrary. Can be any other name, but the reference should match.
+  ports: # it's an array
+    - port: 6379 # port used by other objects to access the Node
+      targetPort: 6379 # port open on the Node
