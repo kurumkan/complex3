@@ -12,8 +12,16 @@ spec: # spec - desired state
       labels:
         component: postgres
     spec:
+      volumes: # requesting for volume defined in "claimName"
+        - name: postgres-storage # the name will be requested in volumeMounts
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim # ref
       containers:
         - name: postgres # name of the container
           image: postgres # image to pull. Container will be created out of it.
           ports:
             - containerPort: 5432 # exposed port
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data # default storage location for postgres
+              subPath: postgres

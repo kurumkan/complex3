@@ -17,3 +17,17 @@ spec: # spec - desired state
           image: joomrise/multi-server # image to pull. Container will be created out of it.
           ports:
             - containerPort: 5000 # exposed port
+          env: # env variables
+            - name: REDIS_HOST
+              value: redis-cluster-ip-service
+            - name: REDIS_PORT
+              value: 6379
+            - name: PGUSER
+              value: postgres
+            - name: PGHOST
+              value: postgres-cluster-ip-service
+            - name: PGPORT
+              value: 5432
+            - name: PGDATABASE
+              value: postgres
+

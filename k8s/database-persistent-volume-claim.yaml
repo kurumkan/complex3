@@ -1,0 +1,10 @@
+apiVersion: v1 # requesting persistent volume claim (PVC)
+kind: PersistentVolumeClaim # type of object we want to create. Service will setup networking inside KB cluster
+metadata:
+  name: database-persistent-volume-claim #id
+spec:
+  accessModes: # array
+    - ReadWriteOnce # can be accessed by only a single node
+  resources:
+    requests:
+      storage: 2Gi # Space allocated

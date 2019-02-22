@@ -15,3 +15,8 @@ spec: # spec - desired state
       containers:
         - name: worker # name of the container
           image: joomrise/multi-worker # image to pull. Container will be created out of it.
+          env: # env variables
+            - name: REDIS_HOST
+              value: redis-cluster-ip-service
+            - name: REDIS_PORT
+              value: 6379
