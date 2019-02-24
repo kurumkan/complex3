@@ -21,13 +21,17 @@ spec: # spec - desired state
             - name: REDIS_HOST
               value: redis-cluster-ip-service
             - name: REDIS_PORT
-              value: 6379
+              value: '6379' # define it as a string
             - name: PGUSER
               value: postgres
             - name: PGHOST
               value: postgres-cluster-ip-service
             - name: PGPORT
-              value: 5432
+              value: '5432' # define it as a string
             - name: PGDATABASE
               value: postgres
-
+            - name: PGPASSWORD
+              valueFrom: # env var set through CLI
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD

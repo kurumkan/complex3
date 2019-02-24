@@ -25,3 +25,9 @@ spec: # spec - desired state
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data # default storage location for postgres
               subPath: postgres
+          env:
+            - name: PGPASSWORD # value got from secret object
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD

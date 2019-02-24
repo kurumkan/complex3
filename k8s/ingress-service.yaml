@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1 # we have to use this version in order to enable ingress
+kind: Ingress # type of object we want to create. Ingress will setup load balancing.
+metadata: #id
+  name: ingress-service
+  annotations:
+    kuberneties.io/ingress.class: nginx # create nginx controller based on nginx project
+    nginx.ingress.kuberneties.io/rewrite-target: /          # remove 'api' part from path
+spec:
+  rules:
+    - http:
+        paths: # routes definitions
+          - path: /
+            backend:
+              serviceName: client-cluster-ip-service
+              servicePort: 3000
+          - path: /api/
+            backend:
+              serviceName: server-cluster-ip-service
+              servicePort: 5000
