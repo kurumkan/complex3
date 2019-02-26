@@ -3,8 +3,8 @@ kind: Ingress # type of object we want to create. Ingress will setup load balanc
 metadata: #id
   name: ingress-service
   annotations:
-    kuberneties.io/ingress.class: nginx # create nginx controller based on nginx project
-    nginx.ingress.kuberneties.io/rewrite-target: /          # remove 'api' part from path
+    kubernetes.io/ingress.class: nginx # create nginx controller based on nginx project
+    nginx.ingress.kubernetes.io/rewrite-target: /          # remove 'api' part from path
 spec:
   rules:
     - http:
